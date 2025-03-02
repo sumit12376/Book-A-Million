@@ -12,7 +12,7 @@ function AllBooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get('https://books-a-million.onrender.com/api/v1/getallbook');
+                const response = await axios.get('http://localhost:3000/api/v1/getallbook');
                 setData(response.data.data);
             } catch (error) {
                 console.error('Error fetching books:', error);

@@ -25,7 +25,7 @@ function Signup() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://books-a-million.onrender.com/api/v1/sign-up', formData);
+            const response = await axios.post('http://localhost:3000/api/v1/sign-up', formData);
             toast.success('Signup successful!');
             navigate('/login');
         } catch (err) {

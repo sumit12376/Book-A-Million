@@ -30,7 +30,7 @@ function AddBook() {
     useEffect(() => {
         const fetchBookData = async () => {
             try {
-                const response = await axios.get(`https://books-a-million.onrender.com/api/v1/getbookbyid/${id}`);
+                const response = await axios.get(`http://localhost:3000/api/v1/getbookbyid/${id}`);
                 setData(response.data.data); 
             } catch (err) {
                 console.error("Error fetching book data:", err);
@@ -54,7 +54,7 @@ function AddBook() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put('https://books-a-million.onrender.com/api/v1/updatebook', data, { headers });
+            const response = await axios.put('http://localhost:3000/api/v1/updatebook', data, { headers });
             toast.success(response.data.message);
             setData({
                 url: '',

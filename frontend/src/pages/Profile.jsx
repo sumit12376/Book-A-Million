@@ -19,7 +19,7 @@ function Profile() {
 
         const fetch = async () => {
             try {
-                const response = await axios.get("https://books-a-million.onrender.com/api/v1/getinfo", { headers });
+                const response = await axios.get("http://localhost:3000/api/v1/getinfo", { headers });
                 console.log(response.data);
                 setprofile(response.data);
             } catch (error) {

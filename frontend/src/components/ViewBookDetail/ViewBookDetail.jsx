@@ -22,7 +22,7 @@ function ViewBookDetail() {
     useEffect(() => {
         const fetchBookData = async () => {
             try {
-                const response = await axios.get(`https://books-a-million.onrender.com/api/v1/getbookbyid/${id}`);
+                const response = await axios.get(`http://localhost:3000/api/v1/getbookbyid/${id}`);
                 setBookData(response.data.data);
                 const localFavStatus = localStorage.getItem(`fav_${userId}_${id}`);
                 const localCartStatus = localStorage.getItem(`cart_${userId}_${id}`);
@@ -46,7 +46,7 @@ function ViewBookDetail() {
 
     const addFav = async () => {
         try {
-            await axios.put("https://books-a-million.onrender.com/api/v1/addbookfav", {}, { headers });
+            await axios.put("http://localhost:3000/api/v1/addbookfav", {}, { headers });
             setIsFav(true);
             localStorage.setItem(`fav_${userId}_${id}`, 'true');
             console.log("Added to favorites");
@@ -57,7 +57,7 @@ function ViewBookDetail() {
 
     const removeFav = async () => {
         try {
-            await axios.put("https://books-a-million.onrender.com/api/v1/deletefav", {}, { headers });
+            await axios.put("http://localhost:3000/api/v1/deletefav", {}, { headers });
             setIsFav(false);
             localStorage.removeItem(`fav_${userId}_${id}`);
             console.log("Removed from favorites");
@@ -68,7 +68,7 @@ function ViewBookDetail() {
 
     const addToCart = async () => {
         try {
-            await axios.put("https://books-a-million.onrender.com/api/v1/addtocart", {}, { headers });
+            await axios.put("http://localhost:3000/api/v1/addtocart", {}, { headers });
             setIsInCart(true);
             localStorage.setItem(`cart_${userId}_${id}`, 'true');
             console.log("Added to cart");
@@ -79,7 +79,7 @@ function ViewBookDetail() {
 
     const removeFromCart = async () => {
         try {
-            await axios.put(`https://books-a-million.onrender.com/api/v1/removeaddtocart/${id}`, {}, { headers });
+            await axios.put(`http://localhost:3000/api/v1/removeaddtocart/${id}`, {}, { headers });
             setIsInCart(false);
             localStorage.removeItem(`cart_${userId}_${id}`);
             console.log("Removed from cart");
@@ -91,7 +91,7 @@ function ViewBookDetail() {
 
     const handleDelete = async () => {
         try {
-            const response = await axios.delete('https://books-a-million.onrender.com/api/v1/deletebook', { headers });
+            const response = await axios.delete('http://localhost:3000/api/v1/deletebook', { headers });
             console.log("Book deleted:", response.data);
             navigate("/")
         } catch (err) {
