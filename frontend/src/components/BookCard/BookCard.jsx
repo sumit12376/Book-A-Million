@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function BookCard({ book }) {
 
-    const formattedTitle = book.title.length > 10 ? `${book.title.slice(0, 20)}...` : book.title;
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    const formattedTitle = book.title.length > 20 ? `${book.title.slice(0, 20)}...` : book.title;
 
     return (
         <Link to={`/viewbookdetail/${book._id}`} >
@@ -12,17 +16,15 @@ function BookCard({ book }) {
                     <img
                         src={book.url}
                         alt={book.title}
-                        className="w-full h-60 object-contain "
+                        className="w-full h-60 object-contain"
                     />
                 </div>
                 <h2 className="text-2xl font-semibold text-black mb-2 hover:text-blue-400 transition-colors duration-300">
                     {formattedTitle}
                 </h2>
-                <div className='text-black font-bold text-lg p-2 rounded '>
+                <div className='text-black font-bold text-lg p-2 rounded'>
                     ₹{book.price}
                 </div>
-
-
                 <p className="text-black mb-3 text-lg italic">by {book.author}</p>
             </div>
         </Link>

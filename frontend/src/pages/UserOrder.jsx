@@ -17,7 +17,12 @@ function UserOrders() {
                         Authorization: `Bearer ${Cookies.get('token')}`,
                     },
                 });
-                setOrders(response.data.data);
+
+                if (response.data && response.data.data) {
+                    setOrders(response.data.data);
+                } else {
+                    setOrders([]); // Ensure orders is always an array
+                }
             } catch (err) {
                 setError('Error fetching orders');
                 console.error(err);
@@ -41,9 +46,9 @@ function UserOrders() {
             setOrders(prevOrders => 
                 prevOrders.map(user => ({
                     ...user,
-                    orders: user.orders.map(order => 
+                    orders: user.orders?.map(order => 
                         order._id === orderId ? { ...order, status: newStatus } : order
-                    ),
+                    ) || [],
                 }))
             );
         } catch (error) {
@@ -62,13 +67,13 @@ function UserOrders() {
     const getStatusClass = (status) => {
         switch (status) {
             case "order placed":
-                return "bg-green-500 text-white"; // Green for "Order Placed"
+                return "bg-green-500 text-white"; 
             case "out for delivery":
-                return "bg-yellow-500 text-white"; // Yellow for "Out for Delivery"
+                return "bg-yellow-500 text-white"; 
             case "delivery canceled":
-                return "bg-red-500 text-white"; // Red for "Delivery Canceled"
+                return "bg-red-500 text-white"; 
             default:
-                return "bg-gray-500 text-white"; // Default color
+                return "bg-gray-500 text-white"; 
         }
     };
 
@@ -91,18 +96,18 @@ function UserOrders() {
                         </thead>
                         <tbody>
                             {orders.map(user => (
-                                user.orders && user.orders.length > 0 ? (
+                                user.orders?.length > 0 ? (
                                     user.orders.map(order => (
-                                        <tr key={order._id} className="hover:bg-gray-50 transition duration-200 text-black">
+                                        <tr key={order?._id || Math.random()} className="hover:bg-gray-50 transition duration-200 text-black">
                                             <td className="border px-4 py-2 bg-white">{user.username}</td>
                                             <td className="border px-4 py-2 bg-white">{user.email}</td>
                                             <td className="border px-4 py-2 bg-white">{user.address}</td>
                                             <td className="border px-4 py-2 bg-white">
-                                                <div className={`p-2 rounded ${getStatusClass(order.status)}`}>
-                                                    {order.status}
+                                                <div className={`p-2 rounded ${getStatusClass(order?.status)}`}>
+                                                    {order?.status || "Unknown"}
                                                 </div>
                                                 <select
-                                                    value={order.status}
+                                                    value={order?.status}
                                                     onChange={(e) => handleStatusChange(order._id, e.target.value)}
                                                     className="border rounded-md px-2 py-1 bg-white mt-2"
                                                 >
@@ -112,14 +117,18 @@ function UserOrders() {
                                                 </select>
                                             </td>
                                             <td className="border px-4 py-2 bg-white">
-                                                <Link to={`/viewbookdetail/${order.book._id}`}>
-                                                    <p className="text-blue-500 hover:underline">Book: {order.book.title}</p>
-                                                </Link>
+                                                {order?.book ? (
+                                                    <Link to={`/viewbookdetail/${order.book._id}`}>
+                                                        <p className="text-blue-500 hover:underline">Book: {order.book.title}</p>
+                                                    </Link>
+                                                ) : (
+                                                    <p className="text-gray-500">Book details not available</p>
+                                                )}
                                             </td>
                                         </tr>
                                     ))
                                 ) : null
-                             ))}
+                            ))}
                         </tbody>
                     </table>
                 </div>
