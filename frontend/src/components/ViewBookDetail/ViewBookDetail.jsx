@@ -20,6 +20,7 @@ function ViewBookDetail() {
     const Role = useSelector((state) => state.auth.role);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const fetchBookData = async () => {
             try {
                 const response = await axios.get(`https://books-a-million.onrender.com/api/v1/getbookbyid/${id}`);
