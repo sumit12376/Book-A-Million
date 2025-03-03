@@ -12,16 +12,16 @@ function UserOrders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/v1/getallorders', {
+                const response = await axios.get('https://books-a-million.onrender.com/api/v1/getallorders', {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('token')}`,
                     },
                 });
 
                 if (response.data && response.data.data) {
-                    setOrders(response.data.data);
+                    setOrders(response.data.data.reverse());
                 } else {
-                    setOrders([]); // Ensure orders is always an array
+                    setOrders([]); 
                 }
             } catch (err) {
                 setError('Error fetching orders');
@@ -35,7 +35,7 @@ function UserOrders() {
 
     const handleStatusChange = async (orderId, newStatus) => {
         try {
-            await axios.put(`http://localhost:3000/api/v1/update-status/${orderId}`, 
+            await axios.put(`https://books-a-million.onrender.com/api/v1/update-status/${orderId}`, 
                 { status: newStatus }, 
                 {
                     headers: {

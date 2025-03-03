@@ -13,11 +13,16 @@ function Favourites() {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
+                const token = Cookies.get('token');
+                const id = Cookies.get('id');
+                console.log('Token:', token); // Debugging
+                console.log('ID:', id); // Debugging
+    
                 const headers = {
-                    id: Cookies.get('id'),
-                    Authorization: `Bearer ${Cookies.get('token')}`
+                    id: id,
+                    Authorization: `Bearer ${token}`
                 };
-
+    
                 const response = await axios.get('http://localhost:3000/api/v1/getfavbook', { headers });
                 setFavorites(response.data.data);
                 setLoading(false);
@@ -26,10 +31,9 @@ function Favourites() {
                 setLoading(false);
             }
         };
-
+    
         fetchFavorites();
     }, []);
-
     if (loading) return <div className="text-center"><Loader/></div>;
     if (error) return <div className="text-center text-red-500">Error: {error}</div>;
 

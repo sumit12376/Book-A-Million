@@ -20,6 +20,7 @@ function ViewBookDetail() {
     const Role = useSelector((state) => state.auth.role);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const fetchBookData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3000/api/v1/getbookbyid/${id}`);
@@ -37,6 +38,7 @@ function ViewBookDetail() {
         };
         fetchBookData();
     }, [id, userId]);
+    
 
     const headers = {
         id: userId,

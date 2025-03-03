@@ -18,7 +18,7 @@ function Cart() {
                     id: Cookies.get('id'),
                     Authorization: `Bearer ${Cookies.get('token')}`
                 };
-                const response = await axios.get('http://localhost:3000/api/v1/getcart', { headers });
+                const response = await axios.get('https://books-a-million.onrender.com/api/v1/getcart', { headers });
                 console.log("setcat",response.data.cart.cart);
                 setCart(response.data.cart.cart);
                 calculateTotalPrice(response.data.cart.cart);
@@ -43,7 +43,7 @@ function Cart() {
                 id: Cookies.get('id'),
                 Authorization: `Bearer ${Cookies.get('token')}`
             };
-            const response = await axios.post('http://localhost:3000/api/v1/placeorder', { order: cart }, { headers });
+            const response = await axios.post('https://books-a-million.onrender.com/api/v1/placeorder', { order: cart }, { headers });
             console.log( "abc",response)
             setCart([]);
             setTotalPrice(0);
