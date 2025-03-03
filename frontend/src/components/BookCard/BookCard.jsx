@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 
 function BookCard({ book }) {
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     const formattedTitle = book.title.length > 20 ? `${book.title.slice(0, 20)}...` : book.title;
 
